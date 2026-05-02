@@ -91,29 +91,29 @@ function initScrollHelpers() {
 /* ============================================================
    3. ЧАСТИЦЫ СПЕЦИЙ (фон hero)
    ============================================================ */
+/* ============================================================
+   3. ЧАСТИЦЫ СПЕЦИЙ (фон hero)
+   ============================================================ */
 async function initSpices() {
   if (typeof tsParticles === 'undefined') return;
 
-  // ФИХ: tsParticles v3 принимает объект { id, options }
-  await tsParticles.load({
+  const container = await tsParticles.load({
     id: 'particles-spices',
     options: {
       fpsLimit: 60,
       particles: {
-        number: { value: 55, density: { enable: true, area: 900 } },
+        number: { value: 350, density: { enable: true, area: 900 } },
         color: { value: ['#ffffff', '#ff3b1f', '#d4884a', '#c0a060'] },
         shape: { type: 'circle' },
         opacity: {
-          value: { min: 0.15, max: 0.55 },
+          value: { min: 0.1, max: 0.8 },
           animation: { enable: true, speed: 0.6, minimumValue: 0.1 }
         },
-        size: { value: { min: 1, max: 2.5 } },
+        size: { value: { min: 0.5, max: 4 } },
         move: {
           enable: true,
-          speed: 0.7,
-          direction: 'none',
+          speed: 0.6,
           random: true,
-          straight: false,
           outModes: { default: 'out' }
         }
       },
@@ -127,6 +127,115 @@ async function initSpices() {
       },
       detectRetina: true
     }
+  });
+
+  if (container) {
+    initMagnetism(container);
+  }
+}
+
+function initMagnetism(container) {
+  const topBtn = document.getElementById('orderTop');
+  const bottomBtn = document.getElementById('orderBottom');
+  
+  if (!topBtn && !bottomBtn) return;
+
+  function loop() {
+    if (!container || container.destroyed) return;
+
+    const canvasRect = container.canvas.element.getBoundingClientRect();
+    const particles = container.particles._array;
+    const dpr = window.devicePixelRatio || 1;
+
+    const targets = [];
+    [topBtn, bottomBtn].forEach(btn => {
+      if (btn) {
+        const r = btn.getBoundingClientRect();
+        targets.push({
+          x: ((r.left + r.width / 2) - canvasRect.left) * dpr,
+          y: ((r.top + r.height / 2) - canvasRect.top) * dpr
+        });
+      }
+    });
+
+    if (targets.length === 0) {
+      requestAnimationFrame(loop);
+      return;
+    }
+
+    for (let i = 0; i < particles.length; i++) {
+      if (i % 2 !== 0) continue;
+
+      const p = particles[i];
+      const target = targets[i % targets.length];
+
+      const dx = target.x - p.position.x;
+      const dy = target.y - p.position.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      const magnetRadius = 2800 * dpr;
+
+      if (dist < magnetRadius) {
+        const force = (1 - dist / magnetRadius);
+
+        if (dist > 80 * dpr) {
+          p.velocity.x += (dx / dist) * force * 0.3;
+          p.velocity.y += (dy / dist) * force * 0.3;
+        } else {
+          const angle = Math.atan2(dy, dx);
+          p.velocity.x += (-Math.sin(angle) * 0.08 + (dx / dist) * 0.02);
+          p.velocity.y += (Math.cos(angle) * 0.08 + (dy / dist) * 0.02);
+        }
+
+        p.velocity.x *= 0.94;
+        p.velocity.y *= 0.94;
+      }
+
+      // Расталкивание между частицами
+      for (let j = i + 1; j < particles.length; j++) {
+        if (j % 2 !== 0) continue;
+
+        const p2 = particles[j];
+        const ex = p.position.x - p2.position.x;
+        const ey = p.position.y - p2.position.y;
+        const edist = Math.sqrt(ex * ex + ey * ey);
+
+        const minDist = 30 * dpr;
+
+        if (edist < minDist && edist > 0) {
+          const repulse = ((minDist - edist) / minDist) * 0.05;
+          const nx = ex / edist;
+          const ny = ey / edist;
+
+          p.velocity.x += nx * repulse;
+          p.velocity.y += ny * repulse;
+          p2.velocity.x -= nx * repulse;
+          p2.velocity.y -= ny * repulse;
+        }
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+}
+
+function initButtonMagnet() {
+  const buttons = document.querySelectorAll('.primary, .order-btn');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      btn.style.transform = `translate3d(${x * 0.2}px, ${y * 0.2}px, 0) scale(1.05)`;
+    });
+
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = `translate3d(0, 0, 0) scale(1)`;
+    });
   });
 }
 
