@@ -11,42 +11,45 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
   </head>
 
-  <body>
+ <body>
 
   <header class="header">
     <div class="logo">TUN <span>LAHMAJO</span></div>
     <button class="back-btn" onclick="history.back()">← Back</button>
   </header>
 
-  <section class="hero">
-    <h1>OUR GALLERY</h1>
-    <p>Inside Tun Lahmajo • Food • Atmosphere • Tradition</p>
-  </section>
+  <section class="game-screen">
 
-  <!-- QUIZ -->
-  <section class="guess-game">
+    <div class="overlay"></div>
 
-    <h2>🍞 Guess the Dish</h2>
+    <div class="game-container">
 
-    <button id="chefMode">🔥 Chef Mode</button>
-    <span id="timer"></span>
-
-    <div class="game-card">
-      <img id="dishImage" src="" alt="dish">
-
-      <div id="answers" class="answers"></div>
-
-      <div class="game-info">
-        <span id="score">Score: 0</span>
-        <button id="nextBtn">Next ➜</button>
+      <div class="title">
+        <h1>GUESS.<br>THE.<span>DISH.</span></h1>
+        <p>Test your taste. Feel the heat.</p>
       </div>
 
-      <p id="feedback"></p>
+      <button id="chefMode">🔥 CHEF MODE</button>
+      <div id="timer"></div>
+
+      <div class="game-card">
+        <img id="dishImage" src="">
+
+        <div id="answers" class="answers"></div>
+
+        <div class="game-info">
+          <span id="score">Score: 0</span>
+          <button id="nextBtn">NEXT →</button>
+        </div>
+
+        <p id="feedback"></p>
+      </div>
+
     </div>
 
   </section>
 
   <script src="src/gallery.js" defer></script>
-
   </body>
+
 </html>

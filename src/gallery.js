@@ -1,18 +1,18 @@
 const dishes = [
   {
-    img: "https://images.unsplash.com/photo-1604382355076-af4b0eb60143",
+    img: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d",
     correct: "Lahmajo",
     options: ["Pizza", "Lahmajo", "Pide", "Lavash"]
   },
   {
-    img: "https://images.unsplash.com/photo-1552566626-52f8b828add9",
+    img: "https://images.unsplash.com/photo-1544025162-d76694265947",
     correct: "Grilled Meat",
-    options: ["Kebab", "Grilled Meat", "Burger", "Steak"]
+    options: ["Steak", "Burger", "Grilled Meat", "Kebab"]
   },
   {
-    img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b",
+    img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
     correct: "Flatbread",
-    options: ["Flatbread", "Pancake", "Pizza", "Crepe"]
+    options: ["Flatbread", "Pancake", "Pizza", "Toast"]
   }
 ];
 
@@ -89,6 +89,7 @@ function checkAnswer(selected, correct) {
     gsap.to(card, { scale: 1.03, duration: 0.1, yoyo: true, repeat: 1 });
 
   } else {
+    score = 0;
     streak = 0;
     multiplier = 1;
 
