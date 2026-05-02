@@ -1,0 +1,685 @@
+/* ============================================================
+   TUN LAHMAJO — style.css
+   Исправлено + усилено
+   ============================================================ */
+
+/* --- Reset & Base ----------------------------------------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: none !important;
+}
+
+:root {
+  --red:       #ff3b1f;
+  --red-glow:  rgba(255, 59, 31, 0.55);
+  --red-dim:   rgba(255, 59, 31, 0.12);
+  --bg:        #0b0b0b;
+  --bg-2:      #111111;
+  --bg-3:      #1a1a1a;
+  --white:     #ffffff;
+  --off-white: rgba(255,255,255,0.75);
+  --muted:     rgba(255,255,255,0.35);
+  --font-disp: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  cursor: none;
+}
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  /* Тонкий шум поверх всего для "зернистой плёнки" */
+  position: relative;
+}
+
+/* Глобальный шум-оверлей */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 99998;
+}
+
+/* --- Полоска прогресса скролла ----------------------------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--red);
+  width: 0%;
+  z-index: 99997;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px var(--red-glow);
+}
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 99999;
+}
+
+/* Маленькая красная точка */
+.cursor-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 8px var(--red-glow);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+/* Кольцо вокруг (новое — анимируется отдельно с задержкой) */
+.cursor-ring {
+  position: absolute;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+              height 0.35s cubic-bezier(0.25, 1, 0.5, 1),
+              background 0.35s ease,
+              border-color 0.35s ease;
+}
+
+.cursor-text {
+  position: absolute;
+  font-family: var(--font-disp);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--white);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              opacity 0.25s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* Активное состояние курсора */
+.cursor.active .cursor-ring {
+  width: 72px; height: 72px;
+  background: rgba(255, 59, 31, 0.1);
+  border-color: rgba(255, 59, 31, 0.45);
+}
+
+.cursor.active .cursor-dot {
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+}
+
+.cursor.active .cursor-text {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+/* ============================================================
+   PARTICLES
+   ============================================================ */
+#particles-spices {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#particles-steam {
+  position: absolute;
+  top: -60px;    /* поднимаем пар выше заголовка */
+  left: -20px;
+  width: 480px;
+  height: 280px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ============================================================
+   HEAT DISTORT (SVG filter)
+   ============================================================ */
+.heat-distort {
+  filter: url(#heat);
+  will-change: filter;
+}
+
+/* ============================================================
+   INTRO OVERLAY
+   ============================================================ */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.intro-logo {
+  font-family: var(--font-disp);
+  font-size: clamp(52px, 8vw, 90px);
+  letter-spacing: 6px;
+  line-height: 1;
+}
+
+.intro-logo span { color: var(--red); }
+
+.intro-tagline {
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: var(--muted);
+  opacity: 0;  /* покажет GSAP */
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 24px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 100;
+  /* Стеклянный фон после скролла — добавляется через JS */
+  transition: background 0.4s ease, padding 0.4s ease;
+}
+
+.nav.scrolled {
+  background: rgba(11, 11, 11, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 60px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.logo {
+  font-family: var(--font-disp);
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
+.logo span { color: var(--red); }
+
+nav { display: flex; gap: 0; }
+
+nav a {
+  position: relative;
+  margin: 0 16px;
+  color: var(--off-white);
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 2px;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover { opacity: 1; color: var(--white); }
+
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -5px;
+  width: 100%; height: 1px;
+  background: var(--red);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Правая группа в навбаре */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+/* Переключатель языков */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  padding: 4px 2px;
+  transition: color 0.25s ease;
+  text-transform: uppercase;
+}
+
+.lang-btn:hover {
+  color: var(--white);
+}
+
+.lang-btn.active {
+  color: var(--red);
+}
+
+.lang-sep {
+  color: rgba(255,255,255,0.15);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.order-btn {
+  border: 1px solid rgba(255,255,255,0.5);
+  background: transparent;
+  color: var(--white);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+.order-btn:hover {
+  background: var(--white);
+  color: var(--bg);
+  border-color: var(--white);
+  box-shadow: 0 0 20px rgba(255,255,255,0.15);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  height: 100vh;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: -5%; left: -5%;
+  width: 110%; height: 110%;
+  background-image: url("hero.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Фоллбэк-градиент если картинки нет */
+  background-color: #1c0a00;
+  z-index: 0;
+  filter: brightness(0.8) saturate(1);
+}
+
+/* Градиентный вуаль слева для читаемости текста */
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(11,11,11,0.85) 0%,
+    rgba(11,11,11,0.5) 40%,
+    rgba(11,11,11,0.1) 70%,
+    transparent 100%
+  );
+}
+
+/* Шум поверх hero для фактуры */
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-content {
+  padding: 0 80px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  max-width: 620px;
+  position: relative;
+}
+
+.left h1 {
+  font-family: var(--font-disp);
+  font-size: clamp(72px, 9vw, 120px);
+  line-height: 0.88;
+  letter-spacing: 2px;
+  color: var(--white);
+  position: relative;
+  z-index: 2;
+}
+
+.left h1 span { color: var(--red); }
+
+.hero-sub {
+  margin-top: 22px;
+  color: var(--off-white);
+  line-height: 1.65;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+}
+
+.buttons {
+  margin-top: 34px;
+  display: flex;
+  gap: 12px;
+}
+
+.primary {
+  position: relative;
+  background: var(--red);
+  border: none;
+  padding: 13px 28px;
+  color: var(--white);
+  border-radius: 30px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.primary:hover {
+  box-shadow: 0 6px 28px var(--red-glow);
+  transform: translateY(-2px);
+}
+
+/* Shimmer-эффект */
+.primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 50%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+  transform: skewX(-20deg);
+}
+
+.primary:hover::before {
+  left: 160%;
+  transition: left 0.55s ease;
+}
+
+.secondary {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.28);
+  padding: 13px 28px;
+  color: var(--white);
+  border-radius: 30px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.secondary:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* Медаль/бейдж справа */
+.hero-badge {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: badge-spin 18s linear infinite;
+  flex-shrink: 0;
+  opacity: 0; /* покажет GSAP */
+}
+
+@keyframes badge-spin {
+  to { transform: rotate(360deg); }
+}
+
+.badge-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  animation: badge-spin 18s linear infinite reverse; /* текст не крутится */
+}
+
+.badge-inner span {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--muted);
+}
+
+.badge-inner strong {
+  font-family: var(--font-disp);
+  font-size: 36px;
+  line-height: 1;
+  color: var(--red);
+}
+
+/* Подсказка скролла */
+.scroll-hint {
+  position: absolute;
+  bottom: 30px; left: 80px;
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--muted);
+  animation: scroll-pulse 2s ease-in-out infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.35; transform: translateY(0); }
+  50%       { opacity: 0.7;  transform: translateY(4px); }
+}
+
+/* ============================================================
+   NEXT (OUR MENU)
+   ============================================================ */
+.next {
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+  background: var(--bg-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  overflow: hidden;
+}
+
+/* Декоративная горизонтальная линия */
+.next::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,59,31,0.3), transparent);
+}
+
+.next-inner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-tag {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: var(--red);
+  opacity: 0.8;
+}
+
+.next h2 {
+  font-family: var(--font-disp);
+  font-size: clamp(60px, 8vw, 100px);
+  color: var(--white);
+  letter-spacing: 3px;
+  line-height: 1;
+}
+
+.next-sub {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   BREAK SECTION (Reveal)
+   ============================================================ */
+.break-section {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+/* Фоновая надпись */
+.break-section::before {
+  content: 'SECRET';
+  position: absolute;
+  font-family: var(--font-disp);
+  font-size: clamp(120px, 20vw, 280px);
+  color: rgba(255,255,255,0.02);
+  letter-spacing: 20px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.break-section-label {
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.reveal-container {
+  position: relative;
+  width: min(80%, 900px);
+  height: 55vh;
+  background: var(--bg-3);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Нижний слой: контент рецепта */
+.reveal-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  z-index: 1;
+  padding: 40px;
+}
+
+.recipe-tag {
+  font-size: 9px;
+  letter-spacing: 6px;
+  color: var(--red);
+  border: 1px solid rgba(255,59,31,0.35);
+  padding: 5px 14px;
+  border-radius: 2px;
+}
+
+.reveal-content h3 {
+  font-family: var(--font-disp);
+  font-size: clamp(52px, 7vw, 90px);
+  line-height: 0.9;
+  letter-spacing: 3px;
+  text-align: center;
+  color: var(--white);
+}
+
+.reveal-content ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+}
+
+.reveal-content ul li {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.li-num {
+  font-family: var(--font-disp);
+  font-size: 16px;
+  color: var(--red);
+  opacity: 0.7;
+}
+
+/* ФИХ: clip-path теперь circle(150% ...) — тот же тип что и в JS (circle).
+   Браузер может анимировать circle → circle без рывков. */
+.reveal-image {
+  position: absolute;
+  inset: 0;
+  background:
+    url('lahmajo-top-view.png') center/cover no-repeat,
+    /* Фоллбэк-градиент если фото нет */
+    radial-gradient(ellipse at 30% 60%, #5c2200 0%, #2a0e00 40%, #1a0800 70%, #0d0400 100%);
+  z-index: 2;
+  /* ФИХ: используем circle, а не polygon — JS тоже использует circle() */
+  clip-path: circle(150% at 50% 50%);
+  /* Убираем CSS transition — анимацию полностью контролирует GSAP */
+  transition: none;
+}

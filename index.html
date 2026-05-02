@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tun Lahmajo</title>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <!-- tsParticles v3 -->
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/tsparticles.all.bundle.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ФИХ: SVG-фильтр теперь ВНУТРИ body, а не за пределами </html> -->
+  <svg style="display:none;" aria-hidden="true">
+    <filter id="heat" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence id="heatturbulence" type="fractalNoise" baseFrequency="0.012 0.06" numOctaves="3" seed="2" />
+      <feDisplacementMap in="SourceGraphic" scale="18" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+
+  <!-- Кастомный курсор -->
+  <div class="cursor">
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-text">YUMMY</div>
+  </div>
+
+  <!-- Интро-заставка -->
+  <div class="intro-overlay">
+    <div class="intro-logo">TUN <span>LAHMAJO</span></div>
+    <div class="intro-tagline" data-i18n="tagline">ARMENIAN FLATBREAD</div>
+  </div>
+
+  <!-- Шапка -->
+  <header class="nav">
+    <div class="logo">TUN <span>LAHMAJO</span></div>
+    <nav>
+      <a href="#" class="hover-target" data-i18n="nav_menu">MENU</a>
+      <a href="#" class="hover-target" data-i18n="nav_about">ABOUT</a>
+      <a href="#" class="hover-target" data-i18n="nav_gallery">GALLERY</a>
+      <a href="#" class="hover-target" data-i18n="nav_locations">LOCATIONS</a>
+      <a href="#" class="hover-target" data-i18n="nav_contact">CONTACT</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="ru">RU</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="hy">ՀԱՅ</button>
+      </div>
+      <button class="order-btn hover-target" data-i18n="order_now">ORDER NOW →</button>
+    </div>
+  </header>
+
+  <!-- Hero секция -->
+  <section class="hero">
+    <div id="particles-spices"></div>
+    <div class="hero-bg"></div>
+    <!-- Шум-текстура для глубины -->
+    <div class="hero-noise"></div>
+
+    <div class="hero-content">
+      <div class="left">
+        <!-- Пар над заголовком -->
+        <div id="particles-steam"></div>
+
+        <h1 class="steam-target" data-i18n-html="hero_h1">THIN.<br>HOT.<br><span>ADDICTIVE.</span></h1>
+        <p class="hero-sub" data-i18n-html="hero_sub">Traditional Armenian lahmajo.<br>Baked fresh. Served hot.</p>
+        <div class="buttons">
+          <button class="primary hover-target" data-i18n="order_now">ORDER NOW →</button>
+          <button class="secondary hover-target" data-i18n="view_menu">VIEW MENU</button>
+        </div>
+      </div>
+
+      <!-- Правая плашка с деталями -->
+      <div class="hero-badge">
+        <div class="badge-inner">
+          <span data-i18n="badge_since">SINCE</span>
+          <strong>1987</strong>
+          <span data-i18n="badge_city">YEREVAN</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-hint" data-i18n="scroll_hint">SCROLL ↓</div>
+  </section>
+
+  <!-- Секция меню -->
+  <section class="next" id="menu">
+    <div class="next-inner">
+      <span class="section-tag" data-i18n="menu_tag">— WHAT WE OFFER —</span>
+      <h2 data-i18n="our_menu">OUR MENU</h2>
+      <p class="next-sub" data-i18n="menu_sub">Crafted with love, tradition & fire</p>
+    </div>
+  </section>
+
+  <!-- Break-section -->
+  <section class="break-section">
+    <div class="break-section-label" data-i18n="reveal_label">← HOVER TO REVEAL THE SECRET →</div>
+    <div class="reveal-container hover-target" id="revealContainer">
+      <!-- Нижний слой: секретный рецепт -->
+      <div class="reveal-content">
+        <span class="recipe-tag" data-i18n="classified">CLASSIFIED</span>
+        <h3 data-i18n-html="secret_recipe">SECRET<br>RECIPE</h3>
+        <ul>
+          <li><span class="li-num">01</span><span data-i18n="ingredient_1">Premium Beef & Lamb Mix</span></li>
+          <li><span class="li-num">02</span><span data-i18n="ingredient_2">Secret Armenian Spices</span></li>
+          <li><span class="li-num">03</span><span data-i18n="ingredient_3">Hand-stretched Dough</span></li>
+          <li><span class="li-num">04</span><span data-i18n="ingredient_4">Stone Oven · 400°C</span></li>
+        </ul>
+      </div>
+      <!-- Верхний слой: фото лахмаджо -->
+      <div class="reveal-image" id="revealImage"></div>
+    </div>
+  </section>
+
+  <script src="/src/main.js"></script>
+</body>
+</html>
