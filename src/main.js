@@ -100,19 +100,19 @@ async function initSpices() {
   const container = await tsParticles.load({
     id: 'particles-spices',
     options: {
-      fpsLimit: 60,
+      fpsLimit: 40,
       particles: {
-        number: { value: 350, density: { enable: true, area: 900 } },
+        number: { value: 150, density: { enable: true, area: 900 } },
         color: { value: ['#ffffff', '#ff3b1f', '#d4884a', '#c0a060'] },
         shape: { type: 'circle' },
         opacity: {
-          value: { min: 0.1, max: 0.8 },
-          animation: { enable: true, speed: 0.6, minimumValue: 0.1 }
+          value: { min: 0.3, max: 0.9 },
+          animation: { enable: true, speed: 0.6, minimumValue: 0.3 }
         },
-        size: { value: { min: 0.5, max: 4 } },
+        size: { value: { min: 0.5, max: 3 } },
         move: {
           enable: true,
-          speed: 0.6,
+          speed: 0.8,
           random: true,
           outModes: { default: 'out' }
         }
@@ -173,7 +173,7 @@ function initMagnetism(container) {
       const dy = target.y - p.position.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      const magnetRadius = 2800 * dpr;
+      const magnetRadius = 3500 * dpr;
 
       if (dist < magnetRadius) {
         const force = (1 - dist / magnetRadius);
