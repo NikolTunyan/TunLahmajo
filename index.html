@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tun Lahmajo</title>
 
   <!-- GSAP + ScrollTrigger -->
@@ -11,11 +12,12 @@
   <!-- tsParticles v3 -->
   <script src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/tsparticles.all.bundle.min.js"></script>
 
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 
   <script>
-    (function() {
+    (function () {
       if (sessionStorage.getItem('introSeen')) {
         document.documentElement.classList.add('skip-intro');
       }
@@ -32,8 +34,8 @@
 
     /* 2. Мгновенно показываем основной контент */
     /* Замени .main-content на свой класс обертки (например, #app, .wrapper или main) */
-    .skip-intro .main, 
-    .skip-intro header, 
+    .skip-intro .main,
+    .skip-intro header,
     .skip-intro footer {
       opacity: 1 !important;
       visibility: visible !important;
@@ -43,6 +45,7 @@
   </style>
 
 </head>
+
 <body>
 
   <!-- ФИХ: SVG-фильтр теперь ВНУТРИ body, а не за пределами </html> -->
@@ -152,4 +155,5 @@
 
   <script src="/src/main.js"></script>
 </body>
+
 </html>

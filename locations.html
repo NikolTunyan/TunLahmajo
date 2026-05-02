@@ -1,43 +1,53 @@
+<!DOCTYPE html>
+<html>
 
-
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="locations.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="locations.css">
 </head>
+
 <body>
 
-<header class="header">
-  <div class="logo">TUN <span>LAHMAJO</span></div>
-  <button class="back-btn" onclick="history.back()">← Back</button>
-</header>
+  <header class="header">
+    <div class="logo">TUN <span>LAHMAJO</span></div>
+    <button class="back-btn" onclick="history.back()">← Back</button>
+  </header>
 
-<section class="hero">
-  <h1>OUR LOCATION</h1>
-  <p>Visit us in the heart of Yerevan</p>
-</section>
+  <section class="hero">
+    <h1>OUR LOCATION</h1>
+    <p>Visit us in the heart of Yerevan</p>
+  </section>
 
-<section class="location-info">
-  <div class="card">
-    <h2>Tun Lahmajo</h2>
-    <p>Teryan Street 23</p>
-    <p>Yerevan, Armenia</p>
-    <a class="map-btn" href="https://maps.app.goo.gl/uX5xUrKL4HbKHD7G8" target="_blank">
-      Open in Google Maps
-    </a>
-  </div>
-</section>
+  <section class="map-section">
 
-<section class="map-section">
-  <iframe
-    src="https://maps.google.com/maps?q=Tun%20Lahmajo%20Yerevan&t=&z=17&ie=UTF8&iwloc=&output=embed" 
-    allowfullscreen=""
-    loading="lazy">
-  </iframe>
-</section>
+    <!-- Google -->
+    <iframe id="googleMap" class="map active"
+      src="https://maps.google.com/maps?q=Tun%20Lahmajo%20Yerevan&t=&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy">
+    </iframe>
 
-<footer class="footer">
-© 2026 Tun Lahmajo • Taste of Armenia
-</footer>
+    <!-- Yandex -->
+    <iframe id="yandexMap" class="map" src="https://yandex.com/map-widget/v1/?text=Tun%20Lahmajo%20Yerevan"
+      loading="lazy">
+    </iframe>
 
+    <div class="map-switch">
+      <div class="switch-container">
+        <button class="switch-btn active" data-map="google">Google Maps</button>
+        <button class="switch-btn" data-map="yandex">Yandex Maps</button>
+      </div>
+    </div>
+
+  </section>
+
+  <footer class="footer">
+    © 2026 Tun Lahmajo • Taste of Armenia
+  </footer>
+
+  <script src="src/locations.js"></script>
 </body>
+
 </html>
-```
