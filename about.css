@@ -1,0 +1,195 @@
+
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:#0f0f0f;
+  color:#fff;
+}
+
+.header{
+  padding:25px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:42px;
+  letter-spacing:2px;
+}
+
+.logo span{
+  color:#ff5a1f;
+}
+
+.back-btn{
+  padding:12px 22px;
+  border:none;
+  background:#ff5a1f;
+  color:#fff;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.hero{
+  height:90vh;
+  background:url("https://images.unsplash.com/photo-1548365328-9f547fb0953b") center/cover;
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.overlay{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,.55);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:700px;
+  padding:20px;
+}
+
+.tag{
+  color:#ff5a1f;
+  letter-spacing:3px;
+  margin-bottom:15px;
+}
+
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:110px;
+  line-height:1;
+}
+
+.desc{
+  margin-top:15px;
+  color:#ddd;
+  font-size:20px;
+}
+
+.story{
+  padding:90px 60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:50px;
+  align-items:center;
+}
+
+.story h2,
+.team h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:60px;
+  margin-bottom:20px;
+}
+
+.story p{
+  color:#bbb;
+  line-height:1.8;
+  margin-bottom:18px;
+  font-size:17px;
+}
+
+.story img{
+  width:100%;
+  border-radius:25px;
+}
+
+.stats{
+  padding:40px 60px 80px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
+
+.box{
+  background:#181818;
+  padding:40px;
+  border-radius:25px;
+  text-align:center;
+}
+
+.box h3{
+  font-size:55px;
+  color:#ff5a1f;
+}
+
+.box p{
+  margin-top:10px;
+  color:#bbb;
+}
+
+.team{
+  padding:90px 60px;
+  text-align:center;
+}
+
+.cards{
+  margin-top:40px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:#181818;
+  padding:35px;
+  border-radius:25px;
+}
+
+.card h3{
+  margin-bottom:12px;
+  font-size:28px;
+}
+
+.card p{
+  color:#aaa;
+  line-height:1.7;
+}
+
+.footer{
+  text-align:center;
+  padding:35px;
+  color:#777;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+@media(max-width:900px){
+
+.hero h1{
+  font-size:70px;
+}
+
+.story{
+  grid-template-columns:1fr;
+}
+
+.stats{
+  grid-template-columns:1fr;
+}
+
+.header{
+  padding:20px;
+}
+
+.story,
+.team,
+.stats{
+  padding-left:20px;
+  padding-right:20px;
+}
+
+}

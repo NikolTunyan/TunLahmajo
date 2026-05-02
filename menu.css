@@ -1,0 +1,126 @@
+/* menu.css */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#0e0e0e;
+  color:white;
+  font-family:'Inter',sans-serif;
+}
+
+header{
+  padding:30px 60px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:42px;
+  letter-spacing:2px;
+}
+
+.logo span{
+  color:#ff5a1f;
+}
+
+.back-btn{
+  padding:12px 22px;
+  background:#ff5a1f;
+  border:none;
+  color:white;
+  border-radius:30px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.hero{
+  text-align:center;
+  padding:70px 20px 40px;
+}
+
+.hero h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:90px;
+  letter-spacing:3px;
+}
+
+.hero p{
+  color:#aaa;
+  font-size:18px;
+  margin-top:10px;
+}
+
+.menu-grid{
+  max-width:1300px;
+  margin:auto;
+  padding:50px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:#181818;
+  border-radius:22px;
+  overflow:hidden;
+  transition:.4s;
+  border:1px solid rgba(255,255,255,.05);
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+
+.card img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+}
+
+.card-content{
+  padding:25px;
+}
+
+.card h3{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#aaa;
+  line-height:1.6;
+  font-size:15px;
+}
+
+.price{
+  margin-top:18px;
+  font-size:26px;
+  color:#ff5a1f;
+  font-weight:700;
+}
+
+.order{
+  margin-top:18px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:#ff5a1f;
+  color:white;
+  cursor:pointer;
+  font-weight:700;
+}
+
+footer{
+  text-align:center;
+  padding:40px;
+  color:#777;
+}

@@ -1,0 +1,65 @@
+
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="contacts.css">
+</head>
+<body>
+
+<div class="bg-glow one"></div>
+<div class="bg-glow two"></div>
+
+<header class="header">
+  <div class="logo">TUN <span>LAHMAJO</span></div>
+  <button class="back-btn" onclick="history.back()">← Back</button>
+</header>
+
+<section class="contact-hero">
+
+  <div class="left">
+    <p class="mini">GET IN TOUCH</p>
+    <h1>CONTACT US</h1>
+    <p class="desc">
+      Have questions, reservations or big orders?  
+      Send us a message and we’ll reply fast.
+    </p>
+
+    <div class="info-boxes">
+      <div class="info">
+        <span>📍</span>
+        <p>Teryan 23, Yerevan</p>
+      </div>
+
+      <div class="info">
+        <span>📞</span>
+        <p>+374 00 00 00</p>
+      </div>
+
+      <div class="info">
+        <span>✉️</span>
+        <p>info@tunlahmajo.am</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <form class="contact-form" id="contactForm">
+
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email Address" required>
+      <input type="text" placeholder="Phone Number">
+
+      <textarea placeholder="Your Message..." required></textarea>
+
+      <button type="submit">SEND MESSAGE →</button>
+
+      <p class="success" id="successMsg">Message Sent Successfully 🔥</p>
+
+    </form>
+  </div>
+
+</section>
+
+<script src="contact.js"></script>
+</body>
+</html>
+```

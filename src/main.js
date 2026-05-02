@@ -551,3 +551,54 @@ window.addEventListener('load', () => {
   initSpices();
   initSteam();
 });
+
+
+
+document.querySelectorAll('[data-i18n="nav_menu"], [data-i18n="view_menu"]').forEach(btn => {
+  btn.addEventListener("click", function () {
+    window.location.href = "menu.html";
+  });
+});
+
+
+document.querySelector('[data-i18n="nav_about"]').addEventListener("click", function () {
+  window.location.href = "about.html";
+});
+
+
+
+document.querySelector('[data-i18n="nav_gallery"]').addEventListener("click", function () {
+  window.location.href = "gallery.html";
+});
+
+
+
+
+document.querySelector('[data-i18n="nav_locations"]').addEventListener("click", function () {
+  window.location.href = "locations.html";
+});
+
+document.querySelector('[data-i18n="nav_contact"]').addEventListener("click", function () {
+  window.location.href = "contacts.html";
+});
+
+const form = document.getElementById("contactForm");
+const success = document.getElementById("successMsg");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  success.style.display = "block";
+  success.style.opacity = "0";
+
+  setTimeout(() => {
+    success.style.opacity = "1";
+  }, 100);
+
+  form.reset();
+
+  setTimeout(() => {
+    success.style.display = "none";
+  }, 4000);
+});
+
