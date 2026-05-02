@@ -13,6 +13,35 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+
+  <script>
+    (function() {
+      if (sessionStorage.getItem('introSeen')) {
+        document.documentElement.classList.add('skip-intro');
+      }
+    })();
+  </script>
+
+  <style>
+    /* 1. Мгновенно скрываем заставку */
+    .skip-intro .intro-overlay {
+      display: none !important;
+      transition: none !important;
+      animation: none !important;
+    }
+
+    /* 2. Мгновенно показываем основной контент */
+    /* Замени .main-content на свой класс обертки (например, #app, .wrapper или main) */
+    .skip-intro .main, 
+    .skip-intro header, 
+    .skip-intro footer {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  </style>
+
 </head>
 <body>
 

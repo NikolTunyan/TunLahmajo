@@ -17,6 +17,25 @@
    ============================================================ */
 gsap.registerPlugin(ScrollTrigger);
 
+document.addEventListener('DOMContentLoaded', () => {
+  const intro = document.querySelector('.intro-overlay');
+  
+  // Если заставка не скрыта через CSS (первый заход)
+  if (!document.documentElement.classList.contains('skip-intro')) {
+    
+    // Здесь твоя логика анимации заставки...
+    setTimeout(() => {
+      intro.classList.add('hidden');
+      // Запоминаем, что пользователь уже видел интро
+      sessionStorage.setItem('introSeen', 'true');
+    }, 500); 
+
+  } else {
+    // Если интро уже было, убеждаемся, что оно скрыто (на всякий случай)
+    if (intro) intro.remove(); 
+  }
+});
+
 /* ============================================================
    1. КАСТОМНЫЙ КУРСОР
    ============================================================ */
